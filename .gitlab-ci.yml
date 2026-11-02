@@ -1,0 +1,8 @@
+stages:
+  - build
+  - deploy
+
+build_image:
+  stage: build
+  script:
+    - docker build -t digimarket:latest .
