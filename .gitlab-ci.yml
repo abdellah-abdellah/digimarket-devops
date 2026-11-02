@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
   - deploy
 
 build_image:
@@ -8,6 +9,13 @@ build_image:
     - shell
   script:
     - docker build -t digimarket:latest .
+
+test_api:
+  stage: test
+  tags:
+    - shell
+  script:
+    - docker run --rm --entrypoint sh -v "$CI_PROJECT_DIR/tests:/app/tests:ro" digimarket:latest -c "pip install --no-cache-dir pytest && python -m pytest -v tests/"
 
 deploy_api:
   stage: deploy
