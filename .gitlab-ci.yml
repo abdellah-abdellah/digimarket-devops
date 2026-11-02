@@ -8,3 +8,11 @@ build_image:
     - shell
   script:
     - docker build -t digimarket:latest .
+
+deploy_api:
+  stage: deploy
+  tags:
+    - shell
+  script:
+    - docker rm -f digimarket-api || true
+    - docker run -d --name digimarket-api -p 5000:5000 -v digimarket-data:/app/instance -e SECRET_KEY -e JWT_SECRET_KEY digimarket:latest
