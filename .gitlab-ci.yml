@@ -4,5 +4,7 @@ stages:
 
 build_image:
   stage: build
+  tags:
+    - shell
   script:
     - docker build -t digimarket:latest .
